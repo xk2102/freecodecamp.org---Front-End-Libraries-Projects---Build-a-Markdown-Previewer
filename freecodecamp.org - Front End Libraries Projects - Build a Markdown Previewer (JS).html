@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- REACT -->
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <!-- JS, Popper.js, jQuery, marked -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+
+
+  <style>
+    body {
+      background-color: #3c6382;
+      margin-top: 50px;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .extra_border {
+      border: 2px solid black;
+      border-radius: 1%;
+      background-color: #60a3bc;
+
+    }
+
+    .extra_minHeight {
+      min-height: 500px;
+    }
+
+    textarea.form-control {
+      height: 60vh;
+      font-size: small;
+    }
+
+    #preview,
+    #editor {
+      padding: 20px;
+      background-color: #82ccdd;
+    }
+
+    code,
+    pre {
+      color: green;
+      background-color: white;
+    }
+  </style>
+
+</head>
+
+<script>
+  marked.setOptions({
+    breaks: true
+  });
+  function updatePreview() {
+    let previewElement = document.getElementById("preview");
+    let editorValue = document.getElementById("editor").value;
+    let markedUpHTML = marked(editorValue);
+    previewElement.innerHTML = markedUpHTML;
+  }
+
+  function setDefault() {
+
+    let defaultText = `\
+# This is a h1 heading1.
+## This is a sub-heading...
+Heres some code, \`<div></div>\`
+\`\`\`
+// this is multi-line code:
+handleInput(event){
+this.setState({input: event.target.value});
+}
+\`\`\`
+General Kenobi, you are a **bold** one.
+It's dangerous to go alone, [Link!](https://www.christoskipouros.com)
+> Block Quotes!
+- And of course there are lists.
+and images ->
+![React Logo w/ Text](https://icon-library.com/images/react-icon/react-icon-13.jpg)
+`;
+
+    let editorField = document.getElementById("editor");
+    let previewElement = document.getElementById("preview");
+    editorField.value = defaultText;
+    previewElement.innerHTML = marked(defaultText);
+  }
+</script>
+
+<body onload="setDefault()">
+  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+  <div class='container'>
+    <div class='row'>
+
+      <div class='col-lg-6'>
+        <div class='text-center extra_border'><strong>EDITOR</strong></div>
+        <div><textarea id='editor' class='form-control extra_border' onkeyup="updatePreview()"></textarea></div>
+      </div>
+
+
+      <div class='col-lg-6'>
+        <div class='text-center extra_border'><strong>PREVIEW</strong></div>
+        <div class='extra_border' id='preview'></div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
